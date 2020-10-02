@@ -1,17 +1,17 @@
 package stackQueue;
 
-public class Node {
-    public Node next;
-    public Node prev;
-    public String val;
+public class Node<Item> {
+    public Node<Item> next;
+    public Node<Item> prev;
+    public Item val;
 
-    public Node(String v, Node n, Node p) {
+    public Node(Item v, Node<Item> n, Node<Item> p) {
         val = v;
         next = n;
         prev = p;
     }
 
-    public Node(String v) {
+    public Node(Item v) {
         val = v;
         next = null;
         prev = null;

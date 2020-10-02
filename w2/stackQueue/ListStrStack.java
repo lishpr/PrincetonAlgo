@@ -32,7 +32,7 @@ public class ListStrStack implements StackOfStrings {
 
     public String pop() {
         if (size == 0) return null;
-        String a = tail.val;
+        String a = (String)tail.val;
         if (size > 1) {
             tail.prev.next = null;
             tail = tail.prev;

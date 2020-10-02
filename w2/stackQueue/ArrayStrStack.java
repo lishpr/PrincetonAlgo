@@ -33,6 +33,13 @@ public class ArrayStrStack implements StackOfStrings {
 
     public String pop() {
         if (isEmpty()) return null;
+        if (endPointer <= size / 4) {
+            String[] a = new String[size / 2];
+            for (int i = 0; i <= endPointer; i++) {
+                a[i] = stack[i];
+            }
+            stack = a;
+        }
         return stack[--endPointer];
     }
 
