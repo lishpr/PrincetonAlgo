@@ -14,4 +14,5 @@ Passed with 83/100 points.
 
 ## Week 3
 Solved collinear points with brute force ![equation](http://latex.codecogs.com/png.latex?O(n^4)) and improved with comparators and pre-sorting ![equation](http://latex.codecogs.com/png.latex?O(n^2\log{n})). Also, implemented mergesort and quicksort.<br>
+Passed with 80/100 points.
 [Problem Specifications](https://coursera.cs.princeton.edu/algs4/assignments/collinear/specification.php)
