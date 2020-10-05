@@ -2,34 +2,42 @@ package collinerPoints;
 
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class BruteCollinearPoints {
-    List<LineSegment> res;
+    private ArrayList<LineSegment> res;
+    private Point[] copy;
 
     public BruteCollinearPoints(Point[] points) {
         if (points == null) throw new IllegalArgumentException();
-        List<Point> ans = new ArrayList<>(Arrays.asList(points));
+        ArrayList<Point> ans = new ArrayList<>(Arrays.asList(points));
         if (ans.contains(null)) throw new IllegalArgumentException();
-        Set<Point> checker = new HashSet<>(ans);
-        if (checker.size() < ans.size()) throw new IllegalArgumentException();
-
-        Arrays.sort(points);
+        copy = points.clone();
+        Arrays.sort(copy);
+        if (hasDuplicate(copy)) throw new IllegalArgumentException();
 
         res = new ArrayList<>();
-        int N = points.length;
+        int N = copy.length;
         for (int i = 0; i < N; i++) {
             for (int j = i + 1; j < N; j++) {
                 for (int k = j + 1; k < N; k++) {
                     for (int l = k + 1; l < N; l++) {
-                        if (check(points[i], points[j], points[k], points[l])) {
-                            res.add(new LineSegment(points[i], points[l]));
+                        if (check(copy[i], copy[j], copy[k], copy[l])) {
+                            res.add(new LineSegment(copy[i], copy[l]));
                         }
                     }
                 }
             }
         }
 
+    }
+
+    private boolean hasDuplicate(Point[] copy) {
+        for (int i = 0; i < copy.length - 1; i++)
+            if (copy[i].compareTo(copy[i + 1]) == 0) return true;
+        return false;
     }
 
     private boolean check(Point p, Point q, Point r, Point s) {

@@ -63,10 +63,12 @@ public class Point implements Comparable<Point> {
      */
     public double slopeTo(Point that) {
         /* YOUR CODE HERE */
-        if (this.compareTo(that) == 0) return Double.NEGATIVE_INFINITY;
-        if (this.x == that.x) return Double.POSITIVE_INFINITY;
-        if (this.y == that.y) return +0.0;
-        return ((double) that.y - (double) this.y) / ((double) that.x - (double) this.x);
+        double dy = that.y - this.y;
+        double dx = that.x - this.x;
+        if (dy == 0 && dx == 0) return Double.NEGATIVE_INFINITY;
+        if (dx == 0) return Double.POSITIVE_INFINITY;
+        if (dy == 0) return 0;
+        return dy/dx;
     }
 
     /**
@@ -84,12 +86,10 @@ public class Point implements Comparable<Point> {
     public int compareTo(Point that) {
         /* YOUR CODE HERE */
         if (this.y < that.y) return -1;
-        else if (this.y > that.y) return 1;
-        else {
-            if (this.x < that.x) return -1;
-            else if (this.x > that.x) return 1;
-            else return 0;
-        }
+        if (this.y > that.y) return 1;
+        if (this.x < that.x) return -1;
+        if (this.x > that.x) return 1;
+        return 0;
     }
 
     /**
@@ -100,18 +100,14 @@ public class Point implements Comparable<Point> {
      */
     public Comparator<Point> slopeOrder() {
         /* YOUR CODE HERE */
-        return new SlopeOrder(this);
+        return new SlopeOrder();
     }
 
-    private static class SlopeOrder implements Comparator<Point> {
-        Point p;
-
-        public SlopeOrder(Point p) {
-            this.p = p;
-        }
+    private class SlopeOrder implements Comparator<Point> {
         @Override
         public int compare(Point o1, Point o2) {
-            return (int) (p.slopeTo(o1) - p.slopeTo(o2));
+            if (o1 == null || o2 == null) throw new NullPointerException();
+            return (int) (slopeTo(o1) - slopeTo(o2));
         }
     }
 
